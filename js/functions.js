@@ -1,13 +1,13 @@
 // Задание 1
-function isStringLengthGreatherLessOrEqual(string, size){
+function isStringLengthLessOrEqual(string, size){
   if (string.length <= size){
     return true;
   }
   return false;
 }
-isStringLengthGreatherLessOrEqual('проверяемая строка', 10);
-isStringLengthGreatherLessOrEqual('проверяемая строка', 20);
-isStringLengthGreatherLessOrEqual('проверяемая строка', 18);
+isStringLengthLessOrEqual('проверяемая строка', 10);
+isStringLengthLessOrEqual('проверяемая строка', 20);
+isStringLengthLessOrEqual('проверяемая строка', 18);
 
 // Задание 2
 function isPalindrom(string) {
