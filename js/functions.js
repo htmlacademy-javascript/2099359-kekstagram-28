@@ -1,13 +1,13 @@
 // Задание 1
-function isStringLengthMultiple(string, size){
+function isStringLengthGreatherLessOrEqual(string, size){
   if (string.length <= size){
     return true;
   }
   return false;
 }
-isStringLengthMultiple('проверяемая строка', 10);
-isStringLengthMultiple('проверяемая строка', 20);
-isStringLengthMultiple('проверяемая строка', 18);
+isStringLengthGreatherLessOrEqual('проверяемая строка', 10);
+isStringLengthGreatherLessOrEqual('проверяемая строка', 20);
+isStringLengthGreatherLessOrEqual('проверяемая строка', 18);
 
 // Задание 2
 function isPalindrom(string) {
@@ -27,11 +27,11 @@ isPalindrom('Лёша на полке клопа нашёл');
 
 // Задание 3
 function getNumberFromString(string) {
-  const numbers = string.replaceAll(' ', '').split('');
+  const symbols = string.replaceAll(' ', '').split('');
   let num = '';
-  for (let i = 0; i <= numbers.length - 1; i++) {
-    if(!Number.isNaN(parseInt(+numbers[i], 10))) {
-      num += +numbers[i];
+  for (let i = 0; i <= symbols.length - 1; i++) {
+    if(!Number.isNaN(parseInt(+symbols[i], 10))) {
+      num += +symbols[i];
     }
 
   }
