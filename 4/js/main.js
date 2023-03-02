@@ -34,29 +34,39 @@ const getRandomInteger = (a, b) => {
 };
 
 let commentId = 100;
+
+function createComment () {
+  return {
+    id: commentId++,
+    avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+    message: messages[getRandomInteger(0, messages.length - 1)],
+    name: names[getRandomInteger(0, names.length - 1)]
+  };
+}
+
 function getRandomComments(quantity){
   const comments = [];
   for (let idx = 1; idx <= quantity; idx++) {
-    comments[idx - 1] = {
-      id: commentId += 1,
-      avatar: `img/avatar-, ${getRandomInteger(1, 6)} + '.svg`,
-      message: messages[getRandomInteger(0, messages.length - 1)],
-      name: names[getRandomInteger(0, names.length - 1)],
-    };
+    comments[idx - 1] = createComment(idx);
   }
   return comments;
 }
 
-const createRhoto = () => {
-  for(let idx = 1; idx <= 25; idx++) {
-    dataBases[idx - 1] = {
-      id: idx,
-      url: `photos/ ${idx} + '.0jpg` ,
-      description: descriptions[getRandomInteger(0, descriptions.length - 1)],
-      likes: getRandomInteger(15, 200),
-      comments: getRandomComments(getRandomInteger(1, 3))
-    };
+function generatePhoto (idx) {
+  return {
+    id: idx,
+    url: `photos/${idx}.jpg` ,
+    description: descriptions[getRandomInteger(0, descriptions.length - 1)],
+    likes: getRandomInteger(15, 200),
+    comments: getRandomComments(getRandomInteger(1, 3))
+  };
+}
+
+function createPhoto() {
+  for (let idx = 1; idx <= 25; idx++){
+    dataBases[idx - 1] = generatePhoto(idx);
   }
-};
-createRhoto();
+}
+
+createPhoto();
 
