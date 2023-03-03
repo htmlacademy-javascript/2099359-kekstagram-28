@@ -33,40 +33,42 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
+const getRandomElement = (arr) => {
+  const idx = getRandomInteger(0, arr.length - 1);
+  return arr[idx];
+};
+
+
 let commentId = 100;
 
-function createComment () {
-  return {
-    id: commentId++,
-    avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-    message: messages[getRandomInteger(0, messages.length - 1)],
-    name: names[getRandomInteger(0, names.length - 1)]
-  };
-}
+const createComment = (commid) => ({
+  id: commid,
+  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+  message: getRandomElement(messages),
+  name: getRandomElement(names)
+});
 
-function getRandomComments(quantity){
+const getRandomComments = (quantity) => {
   const comments = [];
   for (let idx = 1; idx <= quantity; idx++) {
-    comments[idx - 1] = createComment(idx);
+    comments[idx - 1] = createComment(commentId++);
   }
   return comments;
-}
+};
 
-function generatePhoto (idx) {
-  return {
-    id: idx,
-    url: `photos/${idx}.jpg` ,
-    description: descriptions[getRandomInteger(0, descriptions.length - 1)],
-    likes: getRandomInteger(15, 200),
-    comments: getRandomComments(getRandomInteger(1, 3))
-  };
-}
+const createPhoto = (idx) => ({
+  id: idx,
+  url: `photos/${idx}.jpg` ,
+  description: getRandomElement(descriptions),
+  likes: getRandomInteger(15, 200),
+  comments: getRandomComments(getRandomInteger(1, 3))
+});
 
-function createPhoto() {
+const generatePhoto = () => {
   for (let idx = 1; idx <= 25; idx++){
-    dataBases[idx - 1] = generatePhoto(idx);
+    dataBases[idx - 1] = createPhoto(idx);
   }
-}
+};
 
-createPhoto();
+generatePhoto();
 
