@@ -39,11 +39,11 @@ const createComment = (commid) => ({
 });
 
 const getRandomComments = (quantity) => {
-  const comments = [];
+  const urComments = [];
   for (let idx = 1; idx <= quantity; idx++) {
-    comments[idx - 1] = createComment(commentId++);
+    urComments[idx - 1] = createComment(commentId++);
   }
-  return comments;
+  return urComments;
 };
 
 const createPhoto = (idx) => ({
@@ -61,3 +61,4 @@ const generatePhoto = () => {
 };
 
 export {generatePhoto};
+export {dataBases};

@@ -4,4 +4,3 @@ import {renderMiniatures} from './pictures.js';
 
 renderMiniatures(generatePhoto());
 
-

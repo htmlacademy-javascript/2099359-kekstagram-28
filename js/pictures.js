@@ -1,26 +1,18 @@
+import {dataBases } from './data.js';
+
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-// const pictureRenderFragment = document.createDocumentFragment();
-const pictureContainer = document.querySelector('.pictures');
-
-const createMiniatures = ({comments, likes, url}) => {
-  const thumbnail = pictureTemplate.cloneNode(true);
-
-  thumbnail.querySelector('.picture__img').src = url;
-  thumbnail.querySelector('.picture__comments').textContent = comments;
-  thumbnail.querySelector('.picture__likes').textContent = likes;
-  return thumbnail;
-
-};
-
-const renderMiniatures = (array) => {
-  const fragment = document.createDocumentFragment();
-  array.forEach((picture) => {
-    const thumbnail = createMiniatures(picture);
+const fragment = document.createDocumentFragment();
+const container = document.querySelector('.pictures');
+const renderData = dataBases;
+const renderMiniatures = () => {
+  renderData.forEach(({url, likes, comments}) => {
+    const thumbnail = pictureTemplate.cloneNode(true);
+    thumbnail.querySelector('.picture__img').src = url;
+    thumbnail.querySelector('.picture__likes').textContent = likes;
+    thumbnail.querySelector('.picture__comments').textContent = comments.length;
     fragment.appendChild(thumbnail);
   });
-
-  pictureContainer.appendChild(fragment);
-
+  return container.append(fragment);
 };
 
 export {renderMiniatures};
