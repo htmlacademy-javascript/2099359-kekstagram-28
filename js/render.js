@@ -1,10 +1,7 @@
-import {dataBases } from './data.js';
-
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const fragment = document.createDocumentFragment();
 const container = document.querySelector('.pictures');
-const renderData = dataBases;
-const renderMiniatures = () => {
+const renderMiniatures = (renderData) => {
   renderData.forEach(({url, likes, comments}) => {
     const thumbnail = pictureTemplate.cloneNode(true);
     thumbnail.querySelector('.picture__img').src = url;

@@ -1,5 +1,5 @@
 import {generatePhoto} from './data.js';
-import {renderMiniatures} from './pictures.js';
+import {renderMiniatures} from './render.js';
 
 
 renderMiniatures(generatePhoto());
