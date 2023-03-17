@@ -58,6 +58,9 @@ const generatePhoto = () => {
   for (let idx = 1; idx <= 25; idx++){
     dataBases[idx - 1] = createPhoto(idx);
   }
+
+  return dataBases;
+
 };
 
 export {generatePhoto};
