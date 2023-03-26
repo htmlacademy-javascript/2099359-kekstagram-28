@@ -22,11 +22,11 @@ const renderBigPicture = ({url, likes, comments, description}) => {
   fullPicture.querySelector('.social__caption').textContent = description;
 };
 
-const renderNewComment = (arrayComment) => {
+const renderNewComment = (comments) => {
   listComments.innerHTML = '';
   const commentFragment = document.createDocumentFragment();
 
-  arrayComment.forEach(({avatar, name, message}) => {
+  comments.forEach(({avatar, name, message}) => {
     commentCopy.querySelector('.social__picture').src = avatar;
     commentCopy.querySelector('.social__picture').alt = name;
     commentCopy.querySelector('.social__text').textContent = message;
@@ -36,7 +36,10 @@ const renderNewComment = (arrayComment) => {
   listComments.append(commentFragment);
 };
 
-function closeBigPicture () {
+
+function closeBigPicture(){
+  fullPicture.classList.add('hidden');
+  body.classList.remove('modal-open');
   closeButton.removeEventListener('click', closeBigPicture);
   document.removeEventListener('keydown', onEscape);
 }
