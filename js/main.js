@@ -1,6 +1,4 @@
 import {generatePhoto} from './data.js';
-import {renderMiniatures} from './render.js';
+import {renderPictureModal} from './gallery.js';
 
-
-renderMiniatures(generatePhoto());
-
+renderPictureModal(generatePhoto());
