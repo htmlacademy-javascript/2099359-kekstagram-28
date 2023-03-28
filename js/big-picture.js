@@ -10,8 +10,7 @@ const closeButton = fullPicture.querySelector('.big-picture__cancel');
 
 const onEscape = (evt) => {
   if (isEscapeKey (evt)) {
-    fullPicture.classList.add('hidden');
-    body.classList.remove('modal-open');
+    closeBigPicture();
   }
 };
 
@@ -36,6 +35,7 @@ const renderNewComment = (comments) => {
   listComments.append(commentFragment);
 };
 
+// оформлена в виде function, чтобы можно было совершать hoisting
 
 function closeBigPicture(){
   fullPicture.classList.add('hidden');
