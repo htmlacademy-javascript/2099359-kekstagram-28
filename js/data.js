@@ -1,4 +1,4 @@
-import { getRandomInteger , getRandomElement } from './util.js';
+import { getRandomInteger , getRandomArrayElement, createIdGenerator} from './util.js';
 
 
 // итоговый массив
@@ -29,29 +29,26 @@ const names = [
   'Евдокия', 'Дмитрий'
 ];
 
-let commentId = 100;
+const generateCommentId = createIdGenerator();
 
-const createComment = (commid) => ({
-  id: commid,
-  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-  message: getRandomElement(messages),
-  name: getRandomElement(names)
+
+const createMessage = () =>
+  Array.from({length: getRandomInteger(1,1.5)}, () =>
+    getRandomArrayElement(messages)).join(' ');
+
+const createComment = () => ({
+  id : generateCommentId (),
+  avatar : `img/avatar-${getRandomInteger(1,6)}.svg`,
+  message : createMessage (),
+  name : getRandomArrayElement(names)
 });
-
-const getRandomComments = (quantity) => {
-  const comments = [];
-  for (let idx = 1; idx <= quantity; idx++) {
-    comments[idx - 1] = createComment(commentId++);
-  }
-  return comments;
-};
 
 const createPhoto = (idx) => ({
   id: idx,
   url: `photos/${idx}.jpg` ,
-  description: getRandomElement(descriptions),
+  description: getRandomArrayElement(descriptions),
   likes: getRandomInteger(15, 200),
-  comments: getRandomComments(getRandomInteger(1, 3))
+  comments: Array.from({ length: getRandomInteger(1,20)} , createComment),
 });
 
 const generatePhoto = () => {
@@ -63,4 +60,5 @@ const generatePhoto = () => {
 
 };
 
-export {generatePhoto};
+export {generatePhoto, createComment};
+
