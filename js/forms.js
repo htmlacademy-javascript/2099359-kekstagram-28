@@ -1,12 +1,8 @@
 import { isEscapeKey } from './util.js';
-
-const uploadFile = document.querySelector('#upload-file');
-const editorForm = document.querySelector('.img-upload__overlay');
-const editorCloseButton = document.querySelector('#upload-cancel');
-const pictureForm = document.querySelector('.img-upload__form');
-const hashtagField = pictureForm.querySelector('.text__hashtags');
-const descField = pictureForm.querySelector('.text__description');
-
+import { validateCommentsField } from '../validation/validation.js';
+import { validateTags } from '../validation/validation.js';
+import { uploadFile, editorForm, editorCloseButton, pictureForm, hashtagText,
+  commentsText, HASHTAG_ERROR_MESSAGE, COMMENTS_ERROR_MESSAGE, pristine } from '../validation/rules.js';
 
 const onModalEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -16,36 +12,16 @@ const onModalEscKeydown = (evt) => {
 };
 
 
-const deleteEscKeydownForHash = () => {
-  hashtagField.addEventListener('focus', () => {
-    document.removeEventListener('keydown', onModalEscKeydown);
-  });
-
-  hashtagField.addEventListener('blur', () => {
-    document.addEventListener('keydown', onModalEscKeydown);
-  });
-};
-
-const deleteEscKeydownForTextField = () => {
-  descField.addEventListener('focus', () => {
-    document.removeEventListener('keydown', onModalEscKeydown);
-  });
-
-  descField.addEventListener('blur', () => {
-    document.addEventListener('keydown', onModalEscKeydown);
-  });
-};
-
 const openEditor = () => {
   editorForm.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
   document.addEventListener('keydown', onModalEscKeydown);
-  deleteEscKeydownForHash();
-  deleteEscKeydownForTextField();
+
 };
 
 uploadFile.addEventListener('change', openEditor);
+
 
 function closeEditor () {
   editorForm.classList.add('hidden');
@@ -58,4 +34,21 @@ function closeEditor () {
 editorCloseButton.addEventListener('click', closeEditor);
 
 
-export { pictureForm };
+pristine.addValidator(
+  hashtagText,
+  validateTags,
+  HASHTAG_ERROR_MESSAGE
+);
+
+//Описываем валидацию комментариев
+pristine.addValidator(
+  commentsText,
+  validateCommentsField,
+  COMMENTS_ERROR_MESSAGE
+);
+
+pictureForm.addEventListener('submit', (evt) => {
+  if (!pristine.validate()) {
+    evt.preventDefault();
+  }
+});
