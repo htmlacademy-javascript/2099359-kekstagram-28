@@ -1,8 +1,7 @@
 import { isEscapeKey } from './util.js';
-import { validateCommentsField } from '../validation/validation.js';
-import { validateTags } from '../validation/validation.js';
+import { validateLength } from './validation/validation.js';
 import { uploadFile, editorForm, editorCloseButton, pictureForm, hashtagText,
-  commentsText, HASHTAG_ERROR_MESSAGE, COMMENTS_ERROR_MESSAGE, pristine } from '../validation/rules.js';
+  commentsText, HASHTAG_ERROR_MESSAGE, COMMENTS_ERROR_MESSAGE, pristine, MAX_COMMENTS_LENGTH, MAX_COUNT_HASTAG } from './validation/rules.js';
 
 const onModalEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -36,14 +35,14 @@ editorCloseButton.addEventListener('click', closeEditor);
 
 pristine.addValidator(
   hashtagText,
-  validateTags,
+  validateLength(MAX_COUNT_HASTAG),
   HASHTAG_ERROR_MESSAGE
 );
 
 //Описываем валидацию комментариев
 pristine.addValidator(
   commentsText,
-  validateCommentsField,
+  validateLength(MAX_COMMENTS_LENGTH),
   COMMENTS_ERROR_MESSAGE
 );
 

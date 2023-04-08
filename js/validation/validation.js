@@ -1,13 +1,13 @@
-import { HASHTAG, MAX_COMMENTS_LENGTH, MAX_COUNT_HASTAG } from './rules.js';
-
-//Валидируем количество хэштегов
-const validateTagsLength = (tags) => tags.length <= MAX_COUNT_HASTAG;
+import { HASHTAG, MAX_COUNT_HASTAG} from './rules.js';
 
 //Валидируем уникальность хэштегов
 const validateUniqueTags = (tags) => {
   const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
   return new Set(lowerCaseTags).size === lowerCaseTags.length;
 };
+
+export const validateLength = (maxLength) => (iter) => iter.length <= maxLength;
+
 
 //Валидируем остальные требования к тегу
 const isValidTag = (tag) => HASHTAG.test(tag);
@@ -20,10 +20,5 @@ export const validateTags = (value) => {
     .trim()
     .split(' ')
     .filter((tag) => tag.trim().length);
-  return validateTagsLength(tags) && validateUniqueTags(tags) && tags.every(isValidTag);
+  return validateLength(MAX_COUNT_HASTAG) && validateUniqueTags(tags) && tags.every(isValidTag);
 };
-
-//Функция по валидации длины комментариев
-export const validateCommentsField = (value) => value.length <= MAX_COMMENTS_LENGTH;
-
-
