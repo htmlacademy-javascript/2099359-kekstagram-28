@@ -6,7 +6,7 @@ const listComments = fullPicture.querySelector('.social__comments');
 const elementListCopy = listComments.querySelector('li').cloneNode(true);
 const body = document.querySelector('body');
 const commentCount = document.querySelector('.social__comment-count');
-const commentsLoad = document.querySelector('.comments-loader');
+const commentsLoader = document.querySelector('.comments-loader');
 const closeButton = fullPicture.querySelector('.big-picture__cancel');
 
 
@@ -16,11 +16,11 @@ const onEscape = (evt) => {
   }
 };
 
-const renderNewComment = (Comments) => {
+const renderNewComment = (comments) => {
   listComments.innerHTML = '';
   const commentFragment = document.createDocumentFragment();
 
-  Comments.forEach(({avatar, name, message}) => {
+  comments.forEach(({avatar, name, message}) => {
     const comment = elementListCopy.cloneNode(true);
 
     comment.querySelector('.social__picture').src = avatar;
@@ -51,7 +51,7 @@ function closeBigPicture () {
 export const showBigPicture = (picture) => {
   fullPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-  commentsLoad.classList.add('hidden');
+  commentsLoader.classList.add('hidden');
   commentCount.classList.add('hidden');
   closeButton.addEventListener('click', closeBigPicture);
   document.addEventListener('keydown', onEscape);
