@@ -1,7 +1,22 @@
 import { isEscapeKey } from './util.js';
 import { validateLength } from './validation/validation.js';
-import { uploadFile, editorForm, editorCloseButton, pictureForm, hashtagText,
-  commentsText, HASHTAG_ERROR_MESSAGE, COMMENTS_ERROR_MESSAGE, pristine, MAX_COMMENTS_LENGTH, MAX_COUNT_HASTAG } from './validation/rules.js';
+import { HASHTAG_ERROR_MESSAGE, COMMENTS_ERROR_MESSAGE, MAX_COMMENTS_LENGTH, MAX_COUNT_HASTAG } from './validation/rules.js';
+
+export const uploadFile = document.querySelector('#upload-file');
+export const editorForm = document.querySelector('.img-upload__overlay');
+export const editorCloseButton = document.querySelector('#upload-cancel');
+export const pictureForm = document.querySelector('.img-upload__form');
+export const hashtagField = pictureForm.querySelector('.text__hashtags');
+export const descField = pictureForm.querySelector('.text__description');
+export const hashtagText = pictureForm.querySelector('.text__hashtags');
+export const commentsText = pictureForm.querySelector('.text__description');
+
+export const pristine = new Pristine(pictureForm, {
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'img-upload__field-wrapper_error',
+}
+);
 
 const onModalEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -19,8 +34,6 @@ const openEditor = () => {
 
 };
 
-uploadFile.addEventListener('change', openEditor);
-
 
 function closeEditor () {
   editorForm.classList.add('hidden');
@@ -29,6 +42,7 @@ function closeEditor () {
 
   document.removeEventListener('keydown', onModalEscKeydown);
 }
+
 
 editorCloseButton.addEventListener('click', closeEditor);
 
@@ -39,7 +53,6 @@ pristine.addValidator(
   HASHTAG_ERROR_MESSAGE
 );
 
-//Описываем валидацию комментариев
 pristine.addValidator(
   commentsText,
   validateLength(MAX_COMMENTS_LENGTH),
@@ -51,3 +64,7 @@ pictureForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
+
+export const uploadFileEditor = () => {
+  uploadFile.addEventListener('change', openEditor);
+};
