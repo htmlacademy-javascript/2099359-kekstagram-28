@@ -1,6 +1,8 @@
 import { isEscapeKey } from './util.js';
 import { validateLength } from './validation/validation.js';
 import { HASHTAG_ERROR_MESSAGE, COMMENTS_ERROR_MESSAGE, MAX_COMMENTS_LENGTH, MAX_COUNT_HASTAG } from './validation/rules.js';
+import { resetScale } from './scale.js';
+import { resetEffects } from './effects.js';
 
 export const uploadFile = document.querySelector('#upload-file');
 export const editorForm = document.querySelector('.img-upload__overlay');
@@ -36,6 +38,9 @@ const openEditor = () => {
 
 
 function closeEditor () {
+  pictureForm.reset();
+  resetScale();
+  resetEffects();
   editorForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
   pictureForm.reset();
