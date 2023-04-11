@@ -6,18 +6,9 @@ const getRandomInteger = (a, b) => {
 };
 const getRandomArrayItem = (array) => array[getRandomInteger(0,array.length - 1)];
 
-const createIdGenerator = () => {
-  let lastGenerateID = 0;
-
-  return () => {
-    lastGenerateID += 1;
-    return lastGenerateID;
-  };
-};
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 export {getRandomInteger};
 export {getRandomArrayItem};
-export {createIdGenerator};
 export {isEscapeKey};
