@@ -35,7 +35,7 @@ const renderNewComment = (comments) => {
 const renderBigPicture = ({url, description, likes}) => {
   const bigPictureImgElement = fullPicture.querySelector('.big-picture__img img');
   bigPictureImgElement.src = url;
-  bigPictureImgElement.querySelector.alt = description;
+  bigPictureImgElement.alt = description;
   fullPicture.querySelector('.likes-count').textContent = likes;
   fullPicture.querySelector('.social__caption').textContent = description;
 };

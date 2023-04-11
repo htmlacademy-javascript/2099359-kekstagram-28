@@ -1,6 +1,6 @@
 import { isEscapeKey } from './util.js';
-import { validateLength } from './validation/validation.js';
-import { HASHTAG_ERROR_MESSAGE, COMMENTS_ERROR_MESSAGE, MAX_COMMENTS_LENGTH, MAX_COUNT_HASTAG } from './validation/rules.js';
+import { validateLength, validateTags } from './validation/validation.js';
+import { HASHTAG_ERROR_MESSAGE, COMMENTS_ERROR_MESSAGE, MAX_COMMENTS_LENGTH } from './validation/rules.js';
 import { resetScale } from './scale.js';
 import { resetEffects } from './effects.js';
 
@@ -52,7 +52,7 @@ editorCloseButton.addEventListener('click', closeEditor);
 
 pristine.addValidator(
   hashtagText,
-  validateLength(MAX_COUNT_HASTAG),
+  validateTags,
   HASHTAG_ERROR_MESSAGE
 );
 
