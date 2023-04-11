@@ -1,19 +1,17 @@
 import { isEscapeKey } from './util.js';
-import { validateLength } from './validation/validation.js';
-import { HASHTAG_ERROR_MESSAGE, COMMENTS_ERROR_MESSAGE, MAX_COMMENTS_LENGTH, MAX_COUNT_HASTAG } from './validation/rules.js';
+import { validateLength, validateTags } from './validation/validation.js';
+import { HASHTAG_ERROR_MESSAGE, COMMENTS_ERROR_MESSAGE, MAX_COMMENTS_LENGTH } from './validation/rules.js';
 import { resetScale } from './scale.js';
 import { resetEffects } from './effects.js';
 
-export const uploadFile = document.querySelector('#upload-file');
-export const editorForm = document.querySelector('.img-upload__overlay');
-export const editorCloseButton = document.querySelector('#upload-cancel');
-export const pictureForm = document.querySelector('.img-upload__form');
-export const hashtagField = pictureForm.querySelector('.text__hashtags');
-export const descField = pictureForm.querySelector('.text__description');
-export const hashtagText = pictureForm.querySelector('.text__hashtags');
-export const commentsText = pictureForm.querySelector('.text__description');
+const uploadFile = document.querySelector('#upload-file');
+const editorForm = document.querySelector('.img-upload__overlay');
+const editorCloseButton = document.querySelector('#upload-cancel');
+const pictureForm = document.querySelector('.img-upload__form');
+const hashtagText = pictureForm.querySelector('.text__hashtags');
+const commentsText = pictureForm.querySelector('.text__description');
 
-export const pristine = new Pristine(pictureForm, {
+const pristine = new Pristine(pictureForm, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper_error',
@@ -54,7 +52,7 @@ editorCloseButton.addEventListener('click', closeEditor);
 
 pristine.addValidator(
   hashtagText,
-  validateLength(MAX_COUNT_HASTAG),
+  validateTags,
   HASHTAG_ERROR_MESSAGE
 );
 
