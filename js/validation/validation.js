@@ -18,5 +18,5 @@ export const validateTags = (value) => {
     .trim()
     .split(' ')
     .filter((tag) => tag.trim().length);
-  return validateLength(MAX_COUNT_HASTAG,tags) && validateUniqueTags(tags) && tags.every(isValidTag);
+  return validateLength(MAX_COUNT_HASTAG)(tags) && validateUniqueTags(tags) && tags.every(isValidTag);
 };
