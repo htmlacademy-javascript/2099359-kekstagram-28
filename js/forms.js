@@ -89,8 +89,6 @@ const unblockSubmitButton = () => {
   submitButton.textContent = SubmitButtonText.IDLE;
 };
 
-export const pristineReset = () => pristine.reset();
-
 //Обработчик отправки формы
 export const setUserFormSubmit = () => {
   pictureForm.addEventListener('submit', (evt) => {

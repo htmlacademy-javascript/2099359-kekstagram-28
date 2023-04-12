@@ -1,19 +1,25 @@
 import {generatePhoto} from './data.js';
 import {renderPictureModal} from './gallery.js';
-import { getData } from './api.js';
+import { getData, sendData } from './api.js';
 import { showAlert } from './util.js';
-import { uploadFileEditor, closeEditor, setUserFormSubmit} from './forms.js';
+import { uploadFileEditor, setUserFormSubmit} from './forms.js';
+import { showErrorMessage, showSuccessMessage } from './messages.js';
 uploadFileEditor();
 renderPictureModal(generatePhoto());
 
-const PHOTOS_COUNT = 25;
+setUserFormSubmit(async (data) => {
+  try {
+    await sendData(data);
+    uploadFileEditor();
+    showSuccessMessage();
+  } catch {
+    showErrorMessage();
+  }
+});
 
-getData()
-  .then((pictures) => {
-    renderPictureModal(pictures.slice(0, PHOTOS_COUNT));
-  })
-  .catch((err) => {
-    showAlert(err.message);
-  });
-
-setUserFormSubmit(closeEditor);
+try {
+  const data = await getData();
+  renderPictureModal(data);
+} catch (err) {
+  showAlert(err.message);
+}

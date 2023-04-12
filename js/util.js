@@ -27,17 +27,8 @@ const getRandomInteger = (a, b) => {
 };
 const getRandomArrayItem = (array) => array[getRandomInteger(0,array.length - 1)];
 
-function debounce (callback, timeoutDelay) {
-  let timeoutId;
-  return (...rest) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
-  };
-}
-
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 export {getRandomInteger};
 export {getRandomArrayItem};
 export {isEscapeKey};
-export {debounce};
