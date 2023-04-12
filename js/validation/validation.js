@@ -1,4 +1,4 @@
-import { HASHTAG} from './rules.js';
+import { HASHTAG, MAX_COUNT_HASTAG} from './rules.js';
 
 const validateUniqueTags = (tags) => {
   const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
@@ -6,6 +6,7 @@ const validateUniqueTags = (tags) => {
 };
 
 export const validateLength = (maxLength) => (iter) => iter.length <= maxLength;
+
 
 const isValidTag = (tag) => HASHTAG.test(tag);
 
@@ -17,5 +18,5 @@ export const validateTags = (value) => {
     .trim()
     .split(' ')
     .filter((tag) => tag.trim().length);
-  return validateLength(tags) && validateUniqueTags(tags) && tags.every(isValidTag);
+  return validateLength(MAX_COUNT_HASTAG)(tags) && validateUniqueTags(tags) && tags.every(isValidTag);
 };

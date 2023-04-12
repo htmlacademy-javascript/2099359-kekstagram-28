@@ -33,8 +33,9 @@ const renderNewComment = (comments) => {
 };
 
 const renderBigPicture = ({url, description, likes}) => {
-  fullPicture.querySelector('.big-picture__img img').src = url;
-  fullPicture.querySelector('.big-picture__img img').alt = description;
+  const bigPictureImgElement = fullPicture.querySelector('.big-picture__img img');
+  bigPictureImgElement.src = url;
+  bigPictureImgElement.alt = description;
   fullPicture.querySelector('.likes-count').textContent = likes;
   fullPicture.querySelector('.social__caption').textContent = description;
 };
