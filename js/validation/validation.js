@@ -20,3 +20,4 @@ export const validateTags = (value) => {
     .filter((tag) => tag.trim().length);
   return validateLength(MAX_COUNT_HASTAG)(tags) && validateUniqueTags(tags) && tags.every(isValidTag);
 };
+
