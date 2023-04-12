@@ -1,21 +1,8 @@
-import {generatePhoto} from './data.js';
 import {renderPictureModal} from './gallery.js';
-import { getData, sendData } from './api.js';
+import { getData } from './api.js';
 import { showAlert } from './util.js';
-import { uploadFileEditor, setUserFormSubmit} from './forms.js';
-import { showErrorMessage, showSuccessMessage } from './messages.js';
-uploadFileEditor();
-renderPictureModal(generatePhoto());
-
-setUserFormSubmit(async (data) => {
-  try {
-    await sendData(data);
-    uploadFileEditor();
-    showSuccessMessage();
-  } catch {
-    showErrorMessage();
-  }
-});
+import { initForm} from './forms.js';
+initForm();
 
 try {
   const data = await getData();

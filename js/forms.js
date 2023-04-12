@@ -75,9 +75,6 @@ pictureForm.addEventListener('submit', (evt) => {
   }
 });
 
-export const uploadFileEditor = () => {
-  uploadFile.addEventListener('change', openEditor);
-};
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
@@ -90,7 +87,7 @@ const unblockSubmitButton = () => {
 };
 
 //Обработчик отправки формы
-export const setUserFormSubmit = () => {
+export const initForm = () => {
   pictureForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
@@ -111,4 +108,8 @@ export const setUserFormSubmit = () => {
         .finally(unblockSubmitButton);
     }
   });
+  const uploadFileEditor = () => {
+    uploadFile.addEventListener('change', openEditor);
+  };
+  uploadFileEditor();
 };

@@ -51,4 +51,4 @@ function onOutsideClick (evt) {
   }
 }
 
-export { getMessageType, showSuccessMessage, showErrorMessage };
+export {showSuccessMessage, showErrorMessage };
