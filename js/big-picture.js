@@ -33,12 +33,13 @@ const renderNewComment = (comments) => {
 };
 
 const renderBigPicture = ({url, description, likes}) => {
-  const bigPictureImgElement = fullPicture.querySelector('.big-picture__img img');
+  const bigPictureImgElement = fullPicture.querySelector('img');
   bigPictureImgElement.src = url;
   bigPictureImgElement.alt = description;
   fullPicture.querySelector('.likes-count').textContent = likes;
   fullPicture.querySelector('.social__caption').textContent = description;
 };
+
 
 // оформлена в виде function, чтобы можно было совершать hoisting
 function closeBigPicture () {
@@ -60,3 +61,4 @@ export const showBigPicture = (picture) => {
   renderBigPicture(picture);
   renderNewComment(picture.comments);
 };
+
