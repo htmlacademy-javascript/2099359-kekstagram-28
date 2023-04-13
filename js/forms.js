@@ -10,7 +10,7 @@ const SubmitButtonText = {
   IDLE: 'Сохранить',
   SENDING: 'Сохраняю...'
 };
-const uploadFile = document.querySelector('#upload-file');
+export const uploadFile = document.querySelector('#upload-file');
 const editorForm = document.querySelector('.img-upload__overlay');
 const editorCloseButton = document.querySelector('#upload-cancel');
 const pictureForm = document.querySelector('.img-upload__form');

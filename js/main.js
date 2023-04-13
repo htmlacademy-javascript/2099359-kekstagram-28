@@ -3,6 +3,7 @@ import { getData } from './api.js';
 import { showAlert } from './util.js';
 import {initForm} from './forms.js';
 import { getFiltersRender, getFiltersClassChange } from './sort.js';
+import './avatar.js';
 initForm();
 
 try {
