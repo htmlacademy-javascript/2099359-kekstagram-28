@@ -40,6 +40,7 @@ const renderBigPicture = ({url, description, likes}) => {
   fullPicture.querySelector('.social__caption').textContent = description;
 };
 
+
 // оформлена в виде function, чтобы можно было совершать hoisting
 function closeBigPicture () {
   fullPicture.classList.add('hidden');
@@ -60,3 +61,4 @@ export const showBigPicture = (picture) => {
   renderBigPicture(picture);
   renderNewComment(picture.comments);
 };
+
