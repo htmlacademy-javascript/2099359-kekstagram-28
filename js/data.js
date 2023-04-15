@@ -1,12 +1,11 @@
 import { getRandomInteger , getRandomArrayItem} from './util.js';
 
-
 // итоговый массив
 const dataBases = [];
 let commentId = 100;
 
 // тексты комментариев
-const createMessage = [
+const createMessages = [
   'Всё отлично!', 'В целом всё неплохо.', 'Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра.',
   'В конце концов это просто непрофессионально.',
@@ -34,7 +33,7 @@ const names = [
 const createComment = () => ({
   id :commentId++,
   avatar : `img/avatar-${getRandomInteger(1,6)}.svg`,
-  message : getRandomArrayItem(createMessage),
+  message : getRandomArrayItem(createMessages),
   name : getRandomArrayItem(names)
 });
 
