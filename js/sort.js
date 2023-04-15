@@ -1,84 +1,47 @@
+const PICTURES_COUNT = 10;
 
-import { debounce } from './util.js';
-import { renderPictureModal } from './gallery.js';
-
-const RANDOM_PICTURE_COUNT = 10;
-const RERENDER_DELAY = 500;
-
-const imgFiltersForm = document.querySelector('.img-filters__form');
-const imgFiltersButtons = imgFiltersForm.querySelectorAll('.img-filters__button');
-const picturesContainer = document.querySelector('.pictures');
-
-const compareCommentsLength = (picA, picB) => picB.comments.length - picA.comments.length;
-
-const clearPictures = () => {
-  const pictureElements = picturesContainer.querySelectorAll('.picture');
-
-  pictureElements.forEach((pictureElement) => {
-    picturesContainer.removeChild(pictureElement);
-  });
+const Filter = {
+  DEFAULT: 'filter-default',
+  RANDOM: 'filter-random',
+  DISCUSSED: 'filter-discussed'
 };
 
+let currentFilter = Filter.DEFAULT;
+let pictures = [];
 
-const getRandomPhotos = (photos) => {
-  const randomPhotos = [];
+const filterElement = document.querySelector('.img-filters');
+const filtersForm = document.querySelector('.img-filters__form');
+const filterButtons = filtersForm.querySelectorAll('.img-filters__button');
 
-  while (randomPhotos.length < RANDOM_PICTURE_COUNT) {
-    const randomIndex = Math.floor(Math.random() * photos.length);
-    const randomPhoto = photos[randomIndex];
+const sortRandomly = () => Math.random() - 0.5;
 
-    if (!randomPhotos.includes(randomPhoto)) {
-      randomPhotos.push(randomPhoto);
-    }
+const sortByComments = (pictureA, pictureB) =>
+  pictureB.comments.length - pictureA.comments.length;
+
+const getFilteredPictures = () => {
+  switch (currentFilter) {
+    case Filter.RANDOM:
+      return [...pictures].sort(sortRandomly).slice(0, PICTURES_COUNT);
+    case Filter.DISCUSSED:
+      return [...pictures].sort(sortByComments);
+    default:
+      return [...pictures];
   }
-
-  return randomPhotos;
 };
 
-const getSortedPhotos = (photos) => {
-
-  const sortedPhotos = photos.slice().sort(compareCommentsLength);
-
-  return sortedPhotos;
-};
-
-const getFiltersClassChange = () => {
-
-  imgFiltersForm.addEventListener('click', (evt) => {
-    const target = evt.target;
-
-    if (!target.classList.contains('img-filters__button')) {
-      return;
-    }
-
-    imgFiltersButtons.forEach((button) => {
-      button.classList.remove('img-filters__button--active');
-    });
-
-    target.classList.add('img-filters__button--active');
+const setOnFilterClick = (callback) => {
+  filtersForm.addEventListener('click', (evt) => {
+    filterButtons.forEach((item) => item.classList.remove('img-filters__button--active'));
+    evt.target.classList.add('img-filters__button--active');
+    currentFilter = evt.target.id;
+    callback(getFilteredPictures());
   });
 };
 
-const debouncedPhotoRender = debounce((photos) => {
-  clearPictures();
-  renderPictureModal(photos);
-}, RERENDER_DELAY);
-
-const getFiltersRender = (photos) => {
-
-  imgFiltersForm.addEventListener('click', (evt) => {
-    const target = evt.target;
-
-    if (target.id === 'filter-default') {
-      debouncedPhotoRender(photos);
-    }
-    if (target.id === 'filter-random') {
-      debouncedPhotoRender(getRandomPhotos(photos));
-    }
-    if (target.id === 'filter-discussed') {
-      debouncedPhotoRender(getSortedPhotos(photos));
-    }
-  });
+const init = (loadedPictures, cb) => {
+  filterElement.classList.remove('img-filters--inactive');
+  pictures = [...loadedPictures];
+  setOnFilterClick(cb);
 };
 
-export { getFiltersClassChange, getFiltersRender };
+export { getFilteredPictures, init, setOnFilterClick };
