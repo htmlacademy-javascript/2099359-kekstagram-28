@@ -45,3 +45,4 @@ const init = (loadedPictures, cb) => {
 };
 
 export { getFilteredPictures, init, setOnFilterClick };
+
