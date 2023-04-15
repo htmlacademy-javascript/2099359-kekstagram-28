@@ -4,7 +4,7 @@ import { onModalEscKeydown } from './forms.js';
 const errorTemplate = document.querySelector('#error');
 const successTemplate = document.querySelector('#success');
 
-const getMessageType = () => document.querySelector('.error, .success');
+export const getMessageType = () => document.querySelector('.error, .success');
 
 const closeMessage = () => {
   const messageType = getMessageType();
