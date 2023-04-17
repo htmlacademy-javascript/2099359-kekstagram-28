@@ -98,7 +98,7 @@ const onSliderUpdate = () => {
   if (isDefaultEffect()) {
     imagePreview.style.filter = DEFAULT_EFFECT.style;
   } else {
-    imagePreview  .style.filter = `${chosenEffect.style}(${sliderValue}${chosenEffect.unit})`;
+    imagePreview.style.filter = `${chosenEffect.style}(${sliderValue}${chosenEffect.unit})`;
   }
   effectLevelElement.value = sliderValue;
 };
@@ -124,3 +124,4 @@ effectsElement.addEventListener('change', onEffectsChange);
 sliderElement.noUiSlider.on('update', onSliderUpdate);
 
 export { resetEffects };
+
