@@ -1,4 +1,3 @@
-import { showAlert } from './util.js';
 
 const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
 
@@ -17,7 +16,7 @@ const ErrorText = {
   SEND_DATA: 'Не удалось отправить форму. Попробуйте ещё раз',
 };
 
-const load = (route, errorText, method = Method.GET, body = null, showErrorPopup = false) =>
+const load = (route, errorText, method = Method.GET, body = null) =>
   fetch(`${BASE_URL}${route}`, {method, body})
     .then((response) => {
       if (!response.ok) {
@@ -26,11 +25,7 @@ const load = (route, errorText, method = Method.GET, body = null, showErrorPopup
       return response.json();
     })
     .catch(() => {
-      if (showErrorPopup) {
-        throw new Error(errorText);
-      }
-      showAlert(errorText);
-      return[];
+      throw new Error(errorText);
     });
 
 const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA);

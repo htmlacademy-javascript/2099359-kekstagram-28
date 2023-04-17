@@ -3,13 +3,13 @@ import { renderMiniatures, container } from './render.js';
 
 const COMMENTS_BLOCK = 5;
 
-const fullPicture = document.querySelector('.big-picture');
-const bigPictureCloseElement = fullPicture.querySelector('.big-picture__cancel');
-const bigPictureImg = fullPicture.querySelector('img');
-const listComment = fullPicture.querySelector('.social__comments');
+const fullPictureElement = document.querySelector('.big-picture');
+const onBigPictureElementClose = fullPictureElement.querySelector('.big-picture__cancel');
+const bigPictureImgElement = fullPictureElement.querySelector('img');
+const listComment = fullPictureElement.querySelector('.social__comments');
 const commentItem = listComment.querySelector('.social__comment');
-const commentsCount = fullPicture.querySelector('.social__comment-count');
-const commentLoad = fullPicture.querySelector('.comments-loader');
+const commentsCount = fullPictureElement.querySelector('.social__comment-count');
+const commentLoad = fullPictureElement.querySelector('.comments-loader');
 
 let pictures = [];
 
@@ -17,16 +17,16 @@ let commentsLoaded = 0;
 let comments = [];
 
 const renderBigPhoto = ({url, description, likes}) => {
-  bigPictureImg.src = url;
-  bigPictureImg.alt = description;
-  fullPicture.querySelector('.likes-count').textContent = likes;
-  fullPicture.querySelector('.social__caption').textContent = description;
+  bigPictureImgElement.src = url;
+  bigPictureImgElement.alt = description;
+  fullPictureElement.querySelector('.likes-count').textContent = likes;
+  fullPictureElement.querySelector('.social__caption').textContent = description;
 };
 
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeBigPhoto();
+    onBigPhotoCloseElement();
   }
 };
 
@@ -60,7 +60,7 @@ const renderComments = () => {
 };
 
 const showBigPicture = (picture) => {
-  fullPicture.classList.remove('hidden');
+  fullPictureElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
   renderBigPhoto(picture);
@@ -71,9 +71,9 @@ const showBigPicture = (picture) => {
   document.addEventListener('keydown', onPopupEscKeydown);
 };
 
-const onCommentsLoaderButtonClick = () => renderComments();
+const onCommentsLoaderButtonClickElement = () => renderComments();
 
-commentLoad.addEventListener('click', onCommentsLoaderButtonClick);
+commentLoad.addEventListener('click', onCommentsLoaderButtonClickElement);
 
 const onMiniatureClick = (evt) => {
   const targetMiniature = evt.target.closest('.picture');
@@ -91,12 +91,12 @@ const renderPhotos = (currentPictures) => {
   container.addEventListener('click', onMiniatureClick);
 };
 
-function closeBigPhoto () {
-  fullPicture.classList.add('hidden');
+function onBigPhotoCloseElement () {
+  fullPictureElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onPopupEscKeydown);
 }
 
-bigPictureCloseElement.addEventListener('click', closeBigPhoto);
+onBigPictureElementClose.addEventListener('click', onBigPhotoCloseElement);
 
-export { renderPhotos, showBigPicture, closeBigPhoto };
+export { renderPhotos, showBigPicture, onBigPhotoCloseElement };

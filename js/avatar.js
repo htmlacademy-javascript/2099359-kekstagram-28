@@ -1,4 +1,4 @@
-import { imageElement } from './effects.js';
+import { imagePreview } from './scale.js';
 import { uploadFile } from './forms.js';
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
@@ -10,6 +10,6 @@ uploadFile.addEventListener('change', () => {
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
   if (matches) {
-    imageElement .src = URL.createObjectURL(file);
+    imagePreview.src = URL.createObjectURL(file);
   }
 });

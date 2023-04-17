@@ -1,8 +1,8 @@
-const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const pictureElement = document.querySelector('#picture').content.querySelector('.picture');
 export const container = document.querySelector('.pictures');
 
 const createThumbnail = ({ url, description, likes, comments, id }) => {
-  const thumbnail = pictureTemplate.cloneNode(true);
+  const thumbnail = pictureElement.cloneNode(true);
   const pictureImg = thumbnail.querySelector('.picture__img');
 
   pictureImg.src = url;
