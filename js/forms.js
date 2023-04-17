@@ -5,8 +5,8 @@ import { pristineReset } from './validation/validation.js';
 import { getMessageType } from './messages.js';
 
 const uploadFile = document.querySelector('#upload-file');
-const editorForm = document.querySelector('.img-upload__overlay');
-const editorCloseButton = document.querySelector('#upload-cancel');
+const editorFormElement = document.querySelector('.img-upload__overlay');
+const editorCloseButtonElement = document.querySelector('#upload-cancel');
 const imgForm = document.querySelector('.img-upload__form');
 const hashtagField = imgForm.querySelector('.text__hashtags');
 const commentField = imgForm.querySelector('.text__description');
@@ -16,7 +16,7 @@ const onModalEscKeydown = (evt) => {
     evt.preventDefault();
     const messageType = getMessageType();
     if (!messageType) {
-      onEditorClose();
+      onEditorCloseElement();
     }
   }
 };
@@ -41,8 +41,8 @@ const deleteEscKeydownForTextField = () => {
   });
 };
 
-const onEditorOpen = () => {
-  editorForm.classList.remove('hidden');
+const onEditorOpenElement = () => {
+  editorFormElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
   document.addEventListener('keydown', onModalEscKeydown);
@@ -50,10 +50,10 @@ const onEditorOpen = () => {
   deleteEscKeydownForTextField();
 };
 
-uploadFile.addEventListener('change', onEditorOpen);
+uploadFile.addEventListener('change', onEditorOpenElement);
 
-function onEditorClose () {
-  editorForm.classList.add('hidden');
+function onEditorCloseElement () {
+  editorFormElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   resetScale();
   resetEffects();
@@ -63,13 +63,13 @@ function onEditorClose () {
   document.removeEventListener('keydown', onModalEscKeydown);
 }
 
-editorCloseButton.addEventListener('click', onEditorClose);
+editorCloseButtonElement.addEventListener('click', onEditorCloseElement);
 
 export {
   imgForm,
   deleteEscKeydownForHash,
   deleteEscKeydownForTextField,
-  onEditorClose,
+  onEditorCloseElement,
   onModalEscKeydown,
   uploadFile
 };

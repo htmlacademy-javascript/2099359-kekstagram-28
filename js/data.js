@@ -1,4 +1,3 @@
-import { getRandomInteger , getRandomArrayItem} from './util.js';
 
 // итоговый массив
 const dataBases = [];

@@ -1,3 +1,5 @@
+import { imagePreview } from './scale.js';
+
 const EFFECTS = [
   {
     name: 'none',
@@ -46,26 +48,24 @@ const EFFECTS = [
     max: 3,
     step: 0.1,
     unit: '',
-  },
+  }
 ];
 
+const DEFAULT_EFFECTS_VALUE = 100;
 const DEFAULT_EFFECT = EFFECTS[0];
-export const imageElement = document.querySelector('.img-upload__preview img');
-const effectsElement = document.querySelector('.effects');
-const sliderElement = document.querySelector('.effect-level__slider');
+
 const sliderContainer = document.querySelector('.img-upload__effect-level');
+const sliderElement = document.querySelector('.effect-level__slider');
+const effectsElement = document.querySelector('.effects');
 const effectLevelElement = document.querySelector('.effect-level__value');
 
 let chosenEffect = DEFAULT_EFFECT;
-const isDefault = () => chosenEffect === DEFAULT_EFFECT;
 
-const showSlider = () => {
-  sliderContainer.classList.remove('hidden');
-};
+const isDefaultEffect = () => chosenEffect === DEFAULT_EFFECT;
 
-const hideSlider = () => {
-  sliderContainer.classList.add('hidden');
-};
+const hideSlider = () => sliderContainer.classList.add('hidden');
+
+const showSlider = () => sliderContainer.classList.remove('hidden');
 
 const updateSlider = () => {
   sliderElement.noUiSlider.updateOptions({
@@ -77,7 +77,7 @@ const updateSlider = () => {
     start: chosenEffect.max,
   });
 
-  if (isDefault()) {
+  if (isDefaultEffect()) {
     hideSlider();
   } else {
     showSlider();
@@ -89,18 +89,18 @@ const onEffectsChange = (evt) => {
     return;
   }
   chosenEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
-  imageElement.className = `effects__preview--${chosenEffect.name}`;
+  imagePreview.className = `effects__preview--${chosenEffect.name}`;
   updateSlider();
 };
 
 const onSliderUpdate = () => {
   const sliderValue = sliderElement.noUiSlider.get();
-  if (isDefault()) {
-    imageElement.style.filter = DEFAULT_EFFECT.style;
+  if (isDefaultEffect()) {
+    imagePreview.style.filter = DEFAULT_EFFECT.style;
   } else {
-    imageElement.style.filter = `${chosenEffect.style}(${sliderValue}${chosenEffect.unit})`;
-    effectLevelElement.value = sliderValue;
+    imagePreview  .style.filter = `${chosenEffect.style}(${sliderValue}${chosenEffect.unit})`;
   }
+  effectLevelElement.value = sliderValue;
 };
 
 const resetEffects = () => {
@@ -113,7 +113,7 @@ noUiSlider.create(sliderElement, {
     min: DEFAULT_EFFECT.min,
     max: DEFAULT_EFFECT.max,
   },
-  start: DEFAULT_EFFECT.min,
+  start: DEFAULT_EFFECTS_VALUE,
   step: DEFAULT_EFFECT.step,
   connect: 'lower',
 });

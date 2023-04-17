@@ -1,6 +1,6 @@
 import { sendData } from '../api.js';
 import { showSuccessMessage, showErrorMessage } from '../messages.js';
-import { onEditorClose } from '../forms.js';
+import { onEditorCloseElement } from '../forms.js';
 import { MAX_COUNT_HASHTAGS,HASHTAG_ERROR_MESSAGE, COMMENTS_ERROR_MESSAGE, MAX_COMMENTS_LENGTH } from './rules.js';
 const HASHTAG = /^#[a-zа-яё0-9]{1,19}$/i; //Хэштег в форме регулярки
 
@@ -12,7 +12,7 @@ const SubmitButtonText = {
 const imgForm = document.querySelector('.img-upload__form');
 const hashtagText = imgForm.querySelector('.text__hashtags');
 const commentsText = imgForm.querySelector('.text__description');
-const submitButton = document.querySelector('.img-upload__submit');
+const SubmitButtonElement = document.querySelector('.img-upload__submit');
 
 
 const pristine = new Pristine(imgForm, {
@@ -32,7 +32,7 @@ const validateUniqueTags = (tags) => {
 const isValidTag = (tag) => HASHTAG.test(tag);
 
 const validateTags = (value) => {
-  if (value === undefined || value.length === 0) {
+  if (value.length === 0) {
     return true;
   }
   const tags = value
@@ -54,14 +54,14 @@ pristine.addValidator(
   COMMENTS_ERROR_MESSAGE
 );
 
-const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = SubmitButtonText.SENDING;
+const blockSubmitButtonElement = () => {
+  SubmitButtonElement.disabled = true;
+  SubmitButtonElement.textContent = SubmitButtonText.SENDING;
 };
 
-const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.IDLE;
+const unblockSubmitButtonElement = () => {
+  SubmitButtonElement.disabled = false;
+  SubmitButtonElement.textContent = SubmitButtonText.IDLE;
 };
 
 const pristineReset = () => pristine.reset();
@@ -72,10 +72,10 @@ const setUserFormSubmit = () => {
     const formData = new FormData(evt.target);
 
     if (isValid) {
-      blockSubmitButton();
+      blockSubmitButtonElement();
       sendData(formData)
         .then(() => {
-          onEditorClose();
+          onEditorCloseElement();
           showSuccessMessage();
         })
         .catch(
@@ -83,7 +83,7 @@ const setUserFormSubmit = () => {
             showErrorMessage();
           }
         )
-        .finally(unblockSubmitButton);
+        .finally(unblockSubmitButtonElement);
     }
   });
 };
